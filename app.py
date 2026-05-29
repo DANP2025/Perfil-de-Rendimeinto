@@ -145,7 +145,7 @@ fig.add_trace(go.Bar(
     ),
     text=[f"<b>{val:+.2f} SD</b>" for val in z_values],
     textposition='auto',
-    textfont=dict(color='white', size=14),
+    textfont=dict(color='black', size=14),
     hoverinfo='none'
 ))
 
