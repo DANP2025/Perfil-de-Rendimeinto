@@ -58,27 +58,37 @@ df = load_data()
 df_z = calculate_z_scores(df)
 
 # ==========================================
-# 3. SIDEBAR (PANEL LATERAL)
+# 3. ENCABEZADO Y CONTROLES (HEADER LAYOUT)
 # ==========================================
-with st.sidebar:
-    st.image("coach.jpg", use_container_width=True)
-    st.title("⚙️ Panel de Control")
-    st.divider()
-    
-    athlete_list = df['Atleta'].tolist()
-    selected_athlete = st.selectbox("👤 Seleccionar Atleta", athlete_list)
-    
-    st.info("💡 **Tip:** Los Z-Scores mayores a 1.0 indican un rendimiento de nivel Élite dentro del equipo.")
+header_cols = st.columns([1, 3, 2], gap="large", vertical_alignment="center")
 
-# Filtrar datos del atleta
+with header_cols[0]:
+    # Foto del profe (RPE)
+    st.image("coach.jpg", use_container_width=True)
+
+with header_cols[1]:
+    # Títulos principales
+    st.markdown("## ⚡ Perfil de Rendimiento Físico")
+    st.markdown("Comparativa individual frente a la media de la plantilla.")
+    st.info("💡 **Tip:** Z-Scores > 1.0 indican nivel Élite.")
+
+with header_cols[2]:
+    # Dropdown de selección integrado
+    athlete_list = df['Atleta'].tolist()
+    selected_athlete = st.selectbox(
+        "👤 Seleccionar Atleta a evaluar:", 
+        athlete_list,
+        index=0
+    )
+    st.markdown(f"<h3 style='text-align: center; color: #1f77b4;'>{selected_athlete}</h3>", unsafe_allow_html=True)
+
+# Filtrar datos del atleta seleccionado
 athlete_data = df_z[df_z['Atleta'] == selected_athlete].iloc[0]
 
 # ==========================================
-# 4. INTERFAZ PRINCIPAL (HEADER Y MÉTRICAS)
+# 4. TARJETAS DE MÉTRICAS (KPIs)
 # ==========================================
-st.markdown(f"## ⚡ Perfil de Rendimiento: **{selected_athlete}**")
-st.markdown("Comparativa de valores absolutos frente a la media del equipo actual.")
-st.write("") # Espacio en blanco
+st.write("") # Espaciador
 
 # Calcular medias del equipo para los Deltas
 mean_cmj = df['CMJ_cm'].mean()
