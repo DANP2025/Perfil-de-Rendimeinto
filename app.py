@@ -61,7 +61,7 @@ df_z = calculate_z_scores(df)
 # 3. SIDEBAR (PANEL LATERAL)
 # ==========================================
 with st.sidebar:
-    st.image("https://cdn-icons-png.flaticon.com/512/5053/5053915.png", width=80) # Icono genérico deportivo
+    st.image("coach.jpg", use_container_width=True)
     st.title("⚙️ Panel de Control")
     st.divider()
     
